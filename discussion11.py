@@ -60,13 +60,23 @@ def add_pets_from_json(filename, cur, conn):
     json_data = json.loads(file_data)
 
     # THE REST IS UP TO YOU
-    pass
+    for data in json_data:
+        cur.execute('SELECT id FROM Species WHERE title=?',(data['species'],))
+    conn.commit()
 
 
 # TASK 3
 # CODE TO OUTPUT NON-AGGRESSIVE PETS
 def non_aggressive_pets(aggressiveness, cur, conn):
-    pass
+    aggressiveness=[]
+    file=open('pets.json', 'r')
+    f=file.read()
+    file.close()
+    for data in f:
+        ints=data['aggressiveness']
+        if int(ints)<=10:
+            aggressiveness.append(data)
+    print(aggressiveness)
 
 
 
